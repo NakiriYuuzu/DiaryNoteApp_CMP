@@ -47,4 +47,5 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
 
     implementation(libs.koin.android)
+    implementation(libs.precompose.core) // Some bug here in new version of kmm project
 }
