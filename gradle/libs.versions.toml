@@ -1,0 +1,80 @@
+[versions]
+# Original
+agp = "8.1.2"
+kotlin = "1.9.10"
+compose = "1.5.1"
+compose-compiler = "1.5.3"
+compose-material3 = "1.1.2"
+androidx-activityCompose = "1.7.2"
+
+# Added
+androidx-core = "1.12.0"
+androidx-appcompat = "1.6.1"
+compose-multiplatform = "1.5.10"
+kotlinx-serialization = "1.7.3"
+kotlinx-datetime = "0.4.0"
+calf = "0.1.1"
+ktor = "2.3.5"
+koin = "3.5.0"
+moriMoshi = "0.1.0-alpha10"
+precompose = "1.5.4"
+sqlDelight = "2.0.0"
+mokoBiometry = "0.4.0"
+mokoLocation = "0.6.0"
+multiplatformSettings = "1.1.0"
+
+
+[libraries]
+# Original
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+
+# Added
+androidx-core = { module = "androidx.core:core", version.ref = "androidx-core" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-serialization" }
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-ios = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+calf-filePicker = { module = "com.mohamedrejeb.calf:calf-file-picker", version.ref = "calf" }
+moriMoshi-core = { module = "com.moriatsushi.insetsx:insetsx", version.ref = "moriMoshi" }
+precompose-core = { module = "moe.tlaster:precompose", version.ref = "precompose" }
+precompose-viewModel = { module = "moe.tlaster:precompose-viewmodel", version.ref = "precompose" }
+sqlDelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
+sqlDelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
+sqlDelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
+sqlDelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
+mokoBiometry-core = { module = "dev.icerock.moko:biometry-compose", version.ref = "mokoBiometry" }
+mokoLocation-core = { module = "dev.icerock.moko:geo-compose", version.ref = "mokoLocation" }
+multiplatformSettings-noArg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
+
+
+[plugins]
+# Orginal
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+
+# Added
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+sqlDelightPlugin = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
+
+[bundles]
+ktor = ["ktor-core", "ktor-logging", "ktor-negotiation", "ktor-serialization"]
+precompose = ["precompose-core", "precompose-viewModel"]
+sqldelight = ["sqlDelight-runtime", "sqlDelight-coroutines"]
