@@ -1,7 +1,10 @@
 [versions]
-# Original
+# KMM
 agp = "8.1.2"
-kotlin = "1.9.10"
+kotlin = "1.9.20"
+compose-multiplatform = "1.5.10"
+
+# Android
 compose = "1.5.1"
 compose-compiler = "1.5.3"
 compose-material3 = "1.1.2"
@@ -10,14 +13,13 @@ androidx-activityCompose = "1.7.2"
 # Added
 androidx-core = "1.12.0"
 androidx-appcompat = "1.6.1"
-compose-multiplatform = "1.5.10"
 kotlinx-serialization = "1.7.3"
 kotlinx-datetime = "0.4.0"
 calf = "0.1.1"
 ktor = "2.3.5"
 koin = "3.5.0"
 moriMoshi = "0.1.0-alpha10"
-precompose = "1.5.4"
+precompose = "1.5.5"
 sqlDelight = "2.0.0"
 mokoBiometry = "0.4.0"
 mokoLocation = "0.6.0"
