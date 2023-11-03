@@ -85,11 +85,12 @@ kotlin {
 }
 
 android {
-    namespace = "net.yuuzu.diarynoteapp"
-    compileSdk = 34
-    defaultConfig {
-        minSdk = 24
-    }
+    namespace = libs.versions.project.namespace.get() + ".common"
+    compileSdk = libs.versions.android.sdk.compile.get().toInt()
+
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    defaultConfig { minSdk = libs.versions.android.sdk.min.get().toInt() }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

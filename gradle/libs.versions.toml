@@ -1,4 +1,13 @@
 [versions]
+#ProjectSetup
+android_kotlin_compiler = "1.5.4" # 1.5.4 = kotlin 1.9.20 | 1.5.3 = kotlin 1.9.10 | *current Unused
+android_sdk_compile = "34"
+android_sdk_target = "34"
+android_sdk_min = "24"
+project_version_code = "1"
+project_version_name = "1.0.0"
+project_namespace = "net.yuuzu.diarynoteapp"
+
 # KMM
 agp = "8.1.2"
 kotlin = "1.9.20"
@@ -6,7 +15,6 @@ compose-multiplatform = "1.5.10"
 
 # Android
 compose = "1.5.1"
-compose-compiler = "1.5.3"
 compose-material3 = "1.1.2"
 androidx-activityCompose = "1.7.2"
 
