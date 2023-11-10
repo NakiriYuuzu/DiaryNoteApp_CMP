@@ -60,6 +60,8 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 //put your android dependencies here
+                api(compose.preview)
+                api(compose.uiTooling)
                 implementation(libs.androidx.core)
                 implementation(libs.androidx.appcompat)
                 implementation(libs.androidx.activity.compose)
@@ -97,5 +99,12 @@ android {
     }
     kotlin {
         jvmToolchain(17)
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.android.kotlin.compiler.get()
+    }
+    buildFeatures {
+        compose = true
+        buildConfig = true
     }
 }
