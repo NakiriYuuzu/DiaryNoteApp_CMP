@@ -36,8 +36,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.mohamedrejeb.calf.picker.toImageBitmap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
@@ -237,18 +240,34 @@ private fun RecentlyActivity(
                 key = { diary -> diary.id!! }
             ) {
                 val title = if (it.title.length > 6) "${it.title.substring(0, 6)}..." else it.title
-                VerticalGraphic(
-                    text = title,
-                    graphicType = GraphicType.Icon(
-                        imageVector = Icons.Rounded.Image,
-                        tint = Color.Unspecified
-                    ),
-                    textColor = MaterialTheme.colorScheme.onBackground,
-                    textStyle = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Medium),
-                    backgroundColor = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.1f),
-                    contentDescription = "item images",
-                    onClicked = { it.id?.let { it1 -> addDiaryOnClicked(it1) } }
-                )
+                if (it.imageBytes != null) {
+                    VerticalGraphic(
+                        text = title,
+                        graphicType = GraphicType.Image(
+                            bitmap = it.imageBytes.toImageBitmap(),
+                            imageScale = ContentScale.Crop,
+                            imageQuality = FilterQuality.Medium
+                        ),
+                        textColor = MaterialTheme.colorScheme.onBackground,
+                        textStyle = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Medium),
+                        backgroundColor = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.1f),
+                        contentDescription = "item images",
+                        onClicked = { it.id?.let { id -> addDiaryOnClicked(id) } }
+                    )
+                } else {
+                    VerticalGraphic(
+                        text = title,
+                        graphicType = GraphicType.Icon(
+                            imageVector = Icons.Rounded.Image,
+                            tint = Color.Unspecified
+                        ),
+                        textColor = MaterialTheme.colorScheme.onBackground,
+                        textStyle = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Medium),
+                        backgroundColor = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.1f),
+                        contentDescription = "item images",
+                        onClicked = { it.id?.let { id -> addDiaryOnClicked(id) } }
+                    )
+                }
             }
         }
     }
@@ -311,15 +330,28 @@ fun DiaryItem(
             .clickable { diary.id?.let { onAddDiaryClicked(it) } }
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        CustomGraphic(
-            graphicType = GraphicType.Icon(
-                imageVector = Icons.Rounded.Image,
-                tint = MaterialTheme.colorScheme.onPrimary
-            ),
-            size = 50.dp,
-            background = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
-            onClicked = {}
-        )
+        if (diary.imageBytes != null) {
+            CustomGraphic(
+                graphicType = GraphicType.Image(
+                    bitmap = diary.imageBytes.toImageBitmap(),
+                    imageScale = ContentScale.Crop,
+                    imageQuality = FilterQuality.Medium
+                ),
+                size = 50.dp,
+                background = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
+                onClicked = { diary.id?.let { onAddDiaryClicked(it) } }
+            )
+        } else {
+            CustomGraphic(
+                graphicType = GraphicType.Icon(
+                    imageVector = Icons.Rounded.Image,
+                    tint = MaterialTheme.colorScheme.onPrimary
+                ),
+                size = 50.dp,
+                background = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
+                onClicked = { diary.id?.let { onAddDiaryClicked(it) } }
+            )
+        }
         Column(
             modifier = Modifier.weight(1f)
         ) {

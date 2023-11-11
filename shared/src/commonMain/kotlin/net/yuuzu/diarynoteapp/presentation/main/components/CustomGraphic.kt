@@ -37,11 +37,11 @@ fun CustomGraphic(
                 contentDescription = description,
                 tint = graphicType.tint,
                 modifier = Modifier
+                    .padding(padding)
+                    .size(size)
                     .clip(shape)
                     .background(background)
                     .clickable { onClicked() }
-                    .padding(padding)
-                    .size(size)
             )
 
         }
@@ -52,11 +52,11 @@ fun CustomGraphic(
                 filterQuality = graphicType.imageQuality,
                 contentDescription = description,
                 modifier = Modifier
+                    .padding(padding)
+                    .size(size)
                     .clip(shape)
                     .background(background)
                     .clickable { onClicked() }
-                    .padding(padding)
-                    .size(size)
             )
         }
     }

@@ -43,12 +43,12 @@ fun VerticalGraphic(
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .padding(16.dp)
+                .padding(padding)
                 .clip(CircleShape)
                 .background(backgroundColor)
                 .clickable { onClicked() }
                 .size(size)
-                .padding(padding)
+                .padding(if (graphicType is GraphicType.Icon) padding else 0.dp)
         ) {
             when (graphicType) {
                 is GraphicType.Image -> {
@@ -63,7 +63,7 @@ fun VerticalGraphic(
                     Icon(
                         imageVector = graphicType.imageVector,
                         contentDescription = contentDescription,
-                        tint = graphicType.tint,
+                        tint = graphicType.tint
                     )
                 }
             }
