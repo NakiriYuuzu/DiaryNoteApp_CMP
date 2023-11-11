@@ -13,11 +13,13 @@ import org.koin.core.component.inject
 
 class MainViewModel: ViewModel(), KoinComponent {
     private val entity: DiaryDataSource.Local by inject()
+    private val remote: DiaryDataSource.Remote by inject()
 
     private val _state = MutableStateFlow(MainState())
     val state: StateFlow<MainState> = _state.asStateFlow()
 
     init {
+        getWeatherData()
         updateDiaries()
         updateRecentDiaries()
     }
@@ -94,6 +96,15 @@ class MainViewModel: ViewModel(), KoinComponent {
                     )
                 }
             }
+        }
+    }
+
+    private fun getWeatherData() {
+        viewModelScope.launch {
+            val weather = remote.getWeather(12.9784, 24.5665)
+            _state.update { it.copy(
+                weather = weather
+            ) }
         }
     }
 }

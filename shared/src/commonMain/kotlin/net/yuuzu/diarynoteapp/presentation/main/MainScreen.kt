@@ -67,7 +67,9 @@ fun MainScreen(
     BottomSheetScaffold(
         scaffoldState = bottomSheetState,
         topBar = {
-            TopBarContent()
+            TopBarContent(
+                state = state
+            )
         },
         sheetContent = {
             SheetContent(
@@ -93,11 +95,15 @@ fun MainScreen(
 
 @Composable
 fun TopBarContent(
-    // TODO: 之後要改成從 View Model 中取得資料。
+    state: MainState
 ) {
+    val weather = state.weather?.let {
+        "${state.weather.weather[0].main}, ${(state.weather.main.temp - 273.15).toInt()}°C"
+    } ?: "Loading weather data..."
+
     TopHeader(
         name = "Yuuzu",
-        weather = "Cloudy, 25°C",
+        weather = weather,
         profileImage = null,
         onProfileClicked = {},
         options = {
