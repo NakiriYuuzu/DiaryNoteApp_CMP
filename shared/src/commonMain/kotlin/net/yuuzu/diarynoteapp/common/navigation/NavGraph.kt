@@ -5,6 +5,7 @@ import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.Navigator
+import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.rememberNavigator
 import net.yuuzu.diarynoteapp.presentation.detail.DetailScreen
 import net.yuuzu.diarynoteapp.presentation.main.MainScreen
@@ -14,7 +15,7 @@ import net.yuuzu.diarynoteapp.presentation.main.MainScreen
 fun Navigation(
     navigator: Navigator = rememberNavigator()
 ) {
-    val bottomSheetState = rememberBottomSheetScaffoldState() // TODO: 之後要放在 View Model 中以避免重建。
+    val bottomSheetState = rememberBottomSheetScaffoldState()
     NavHost(
         navigator = navigator,
         initialRoute = Screen.MainScreen.route, // 一開始要顯示的畫面。
@@ -22,11 +23,19 @@ fun Navigation(
         scene(route = Screen.MainScreen.route) {
             MainScreen(
                 bottomSheetState = bottomSheetState,
-                addDiaryOnClicked = { navigator.navigate(Screen.DetailScreen.route) }
+                addDiaryOnClicked = {
+                    navigator.navigate(Screen.DetailScreen.route.plus("/$it"))
+                }
             )
         }
-        scene(route = Screen.DetailScreen.route) {
-            DetailScreen(onBackClicked = { navigator.popBackStack() })
+        scene(route = Screen.DetailScreen.route.plus(Screen.DetailScreen.objectPath)) { backStackEntry ->
+            Screen.DetailScreen.objectName?.let { objectName ->
+                val diaryId: Long? = backStackEntry.path<Long>(objectName)
+                DetailScreen(
+                    diaryId = diaryId ?: 0,
+                    onBackClicked = { navigator.popBackStack() }
+                )
+            }
         }
     }
 }

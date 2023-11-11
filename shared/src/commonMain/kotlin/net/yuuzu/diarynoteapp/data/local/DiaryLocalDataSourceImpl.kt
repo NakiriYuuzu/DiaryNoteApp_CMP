@@ -26,7 +26,8 @@ class DiaryLocalDataSourceImpl(
             .getDiary(id)
             .asFlow()
             .map { diaryEntity ->
-                diaryEntity.executeAsOne().toDiary(imageStorage = imageStorage)
+                val result = diaryEntity.executeAsOneOrNull()
+                result?.toDiary(imageStorage = imageStorage) ?: Diary.empty
             }
     }
 
@@ -101,7 +102,7 @@ class DiaryLocalDataSourceImpl(
 
         queries.insertDiaryEntity(
             id = diary.id,
-            tag = diary.tag,
+            tag = diary.tag.uppercase(),
             title = diary.title,
             content = diary.content,
             imagePath = imagePath,
