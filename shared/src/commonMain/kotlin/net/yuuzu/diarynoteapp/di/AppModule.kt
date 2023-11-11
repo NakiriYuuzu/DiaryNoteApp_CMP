@@ -9,7 +9,10 @@ import org.koin.dsl.module
 
 private val dataModule = module {
     single<DiaryDataSource.Local> {
-        DiaryLocalDataSourceImpl(database = DiaryDatabase(driver = get()))
+        DiaryLocalDataSourceImpl(
+            database = DiaryDatabase(driver = get()),
+            imageStorage = get()
+        )
     }
 }
 
