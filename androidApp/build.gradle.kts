@@ -11,6 +11,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(projects.shared)
+                api(libs.koin.android)
                 api(libs.androidx.core)
                 api(libs.androidx.appcompat)
                 api(libs.androidx.activity.compose)
