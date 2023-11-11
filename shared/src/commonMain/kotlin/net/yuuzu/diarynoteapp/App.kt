@@ -8,8 +8,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.moriatsushi.insetsx.rememberWindowInsetsController
 import moe.tlaster.precompose.PreComposeApp
-import moe.tlaster.precompose.navigation.NavHost
-import moe.tlaster.precompose.navigation.rememberNavigator
 import net.yuuzu.diarynoteapp.common.navigation.Navigation
 import net.yuuzu.diarynoteapp.common.theme.AppTheme
 

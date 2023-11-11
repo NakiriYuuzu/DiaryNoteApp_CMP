@@ -18,10 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.FilterQuality
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -78,17 +74,4 @@ fun VerticalGraphic(
             color = textColor,
         )
     }
-}
-
-sealed class GraphicType {
-    data class Image(
-        val bitmap: ImageBitmap,
-        val imageScale: ContentScale = ContentScale.Crop,
-        val imageQuality: FilterQuality = FilterQuality.None
-    ) : GraphicType()
-
-    data class Icon(
-        val imageVector: ImageVector,
-        val tint: Color = Color.Unspecified,
-    ) : GraphicType()
 }

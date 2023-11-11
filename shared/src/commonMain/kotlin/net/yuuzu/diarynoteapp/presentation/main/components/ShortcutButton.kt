@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ShortcutButton(
     text: String,
-    background: Color,
     icon: ImageVector,
+    background: Color,
     iconTint: Color = contentColorFor(backgroundColor = background),
     modifier: Modifier = Modifier,
     onShortcutClicked: () -> Unit,
