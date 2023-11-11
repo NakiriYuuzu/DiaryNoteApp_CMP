@@ -108,3 +108,11 @@ android {
         buildConfig = true
     }
 }
+
+sqldelight {
+    databases {
+        create("DiaryDatabase") {
+            packageName.set("${libs.versions.project.namespace.get()}.database")
+        }
+    }
+}

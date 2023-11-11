@@ -1,0 +1,45 @@
+CREATE TABLE diaryEntity(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    tag TEXT NOT NULL,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    imagePath TEXT,
+    createdAt INTEGER NOT NULL
+);
+
+getDiary:
+SELECT *
+FROM diaryEntity
+WHERE id = :id;
+
+getDiaries:
+SELECT *
+FROM diaryEntity
+ORDER BY createdAt DESC;
+
+getRecentDiaries:
+SELECT *
+FROM diaryEntity
+ORDER BY createdAt DESC
+LIMIT :amount;
+
+getDiariesByDate:
+SELECT *
+FROM diaryEntity
+WHERE createdAt BETWEEN :startDate AND :endDate
+ORDER BY createdAt DESC;
+
+getDiariesByTag:
+SELECT *
+FROM diaryEntity
+WHERE tag = :tag
+ORDER BY createdAt DESC;
+
+insertDiaryEntity:
+INSERT OR REPLACE
+INTO diaryEntity(id, tag, title, content, imagePath, createdAt)
+VALUES (?, ?, ?, ?, ?, ?);
+
+deleteDiary:
+DELETE FROM diaryEntity
+WHERE id = :id;
