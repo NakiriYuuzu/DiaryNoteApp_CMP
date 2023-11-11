@@ -13,9 +13,11 @@ import net.yuuzu.diarynoteapp.data.DiaryDataSource
 import net.yuuzu.diarynoteapp.data.mapper.toDiary
 import net.yuuzu.diarynoteapp.data.model.Diary
 import net.yuuzu.diarynoteapp.database.DiaryDatabase
+import net.yuuzu.diarynoteapp.utils.ImageStorage
 
 class DiaryLocalDataSourceImpl(
     database: DiaryDatabase,
+    private val imageStorage: ImageStorage
 ): DiaryDataSource.Local {
     private val queries = database.diaryQueries
 
@@ -24,7 +26,7 @@ class DiaryLocalDataSourceImpl(
             .getDiary(id)
             .asFlow()
             .map { diaryEntity ->
-                diaryEntity.executeAsOne().toDiary()
+                diaryEntity.executeAsOne().toDiary(imageStorage = imageStorage)
             }
     }
 
@@ -37,7 +39,7 @@ class DiaryLocalDataSourceImpl(
                 supervisorScope {
                     diaryEntities
                         .map {
-                            async { it.toDiary() }
+                            async { it.toDiary(imageStorage = imageStorage) }
                         }
                         .map { it.await() }
                 }
@@ -53,7 +55,7 @@ class DiaryLocalDataSourceImpl(
                 supervisorScope {
                     diaryEntities
                         .map {
-                            async { it.toDiary() }
+                            async { it.toDiary(imageStorage = imageStorage) }
                         }
                         .map { it.await() }
                 }
@@ -69,7 +71,7 @@ class DiaryLocalDataSourceImpl(
                 supervisorScope {
                     diaryEntities
                         .map {
-                            async { it.toDiary() }
+                            async { it.toDiary(imageStorage = imageStorage) }
                         }
                         .map { it.await() }
                 }
@@ -85,7 +87,7 @@ class DiaryLocalDataSourceImpl(
                 supervisorScope {
                     diaryEntities
                         .map {
-                            async { it.toDiary() }
+                            async { it.toDiary(imageStorage = imageStorage) }
                         }
                         .map { it.await() }
                 }
@@ -93,17 +95,23 @@ class DiaryLocalDataSourceImpl(
     }
 
     override suspend fun insertDiary(diary: Diary) {
+        val imagePath = diary.imageBytes?.let {
+            imageStorage.saveImage(it)
+        }
+
         queries.insertDiaryEntity(
             id = diary.id,
             tag = diary.tag,
             title = diary.title,
             content = diary.content,
-            imagePath = null,
+            imagePath = imagePath,
             createdAt = Clock.System.now().toEpochMilliseconds(),
         )
     }
 
     override suspend fun deleteDiary(id: Long) {
+        val entity = queries.getDiary(id).executeAsOneOrNull()
+        entity?.imagePath?.let { imageStorage.deleteImage(it) }
         queries.deleteDiary(id = id)
     }
 }
