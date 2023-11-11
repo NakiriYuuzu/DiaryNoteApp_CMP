@@ -21,11 +21,12 @@ fun Navigation(
     ) {
         scene(route = Screen.MainScreen.route) {
             MainScreen(
-                bottomSheetState = bottomSheetState
+                bottomSheetState = bottomSheetState,
+                addDiaryOnClicked = { navigator.navigate(Screen.DetailScreen.route) }
             )
         }
-        scene(route = Screen.DetailScreen.route.plus(Screen.DetailScreen.objectPath)) {
-            DetailScreen()
+        scene(route = Screen.DetailScreen.route) {
+            DetailScreen(onBackClicked = { navigator.popBackStack() })
         }
     }
 }

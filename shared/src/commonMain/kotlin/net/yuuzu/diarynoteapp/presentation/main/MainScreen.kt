@@ -45,7 +45,8 @@ import net.yuuzu.diarynoteapp.presentation.main.components.VerticalGraphic
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    bottomSheetState: BottomSheetScaffoldState // TODO: 之後要放在 View Model 中以避免重建。
+    bottomSheetState: BottomSheetScaffoldState, // TODO: 之後要放在 View Model 中以避免重建。
+    addDiaryOnClicked: () -> Unit
 ) {
     BottomSheetScaffold(
         scaffoldState = bottomSheetState,
@@ -60,7 +61,7 @@ fun MainScreen(
         sheetContainerColor = MaterialTheme.colorScheme.background,
         sheetContentColor = MaterialTheme.colorScheme.onBackground
     ) {
-        MainContent()
+        MainContent(addDiaryOnClicked)
     }
 }
 
@@ -90,6 +91,7 @@ fun TopBarContent(
 @Composable
 fun MainContent(
     // TODO: 之後要改成從 View Model 中取得資料。
+    addDiaryOnClicked: () -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -125,7 +127,7 @@ fun MainContent(
                     icon = Icons.Rounded.Add,
                     iconTint = MaterialTheme.colorScheme.primary,
                     background = MaterialTheme.colorScheme.primary.copy(0.1f),
-                    onShortcutClicked = {},
+                    onShortcutClicked = { addDiaryOnClicked() },
                     modifier = Modifier.weight(1f)
                 )
                 ShortcutButton(
