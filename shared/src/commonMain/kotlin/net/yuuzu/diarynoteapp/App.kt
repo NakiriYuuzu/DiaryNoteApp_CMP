@@ -6,6 +6,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import com.moriatsushi.insetsx.SystemBarsBehavior
 import com.moriatsushi.insetsx.rememberWindowInsetsController
 import moe.tlaster.precompose.PreComposeApp
 import net.yuuzu.diarynoteapp.common.navigation.Navigation
@@ -20,8 +21,10 @@ fun App(
 
     LaunchedEffect(Unit) {
         windowInsets?.setIsNavigationBarsVisible(false)
+        windowInsets?.setNavigationBarsContentColor(darkTheme)
         windowInsets?.setIsStatusBarsVisible(true)
-        windowInsets?.setSystemBarsBehavior(com.moriatsushi.insetsx.SystemBarsBehavior.Immersive)
+        windowInsets?.setStatusBarContentColor(darkTheme)
+        windowInsets?.setSystemBarsBehavior(SystemBarsBehavior.Default)
     }
 
     PreComposeApp {
