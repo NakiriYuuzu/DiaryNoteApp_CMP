@@ -21,7 +21,7 @@ private val dataModule = module {
 }
 
 private val sharedModules = listOf(
-    dataModule,
+    dataModule
 )
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
